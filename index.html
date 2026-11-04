@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,16 +16,10 @@ body {
 header {
   background: #173b64;
   color: white;
-  padding: 35px 15px;
+  padding: 30px 15px;
 }
-header h1 {
-  font-size: 38px;
-  margin: 0;
-}
-main {
-  padding: 30px 20px;
-}
-h2 { font-size: 25px; }
+header h1 { font-size: 38px; margin: 0; }
+main { padding: 25px 18px; }
 p { line-height: 1.6; color: #63758a; }
 .action {
   display: block;
@@ -37,39 +32,101 @@ p { line-height: 1.6; color: #63758a; }
   text-decoration: none;
   font-size: 18px;
   font-weight: bold;
-  box-shadow: 0 3px 12px #dce3ec;
 }
-.action:hover { background: #eaf2fc; }
-footer {
-  padding: 25px;
-  color: #718096;
-  font-size: 13px;
+section {
+  max-width: 450px;
+  margin: 35px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
 }
+input, select, textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 13px;
+  margin: 9px 0;
+  border: 1px solid #ccd5df;
+  border-radius: 8px;
+  font-size: 16px;
+}
+button {
+  width: 100%;
+  padding: 15px;
+  background: #173b64;
+  color: white;
+  border: 0;
+  border-radius: 9px;
+  font-size: 17px;
+}
+footer { padding: 25px; color: #718096; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>ONE CLICK</h1>
-  <p style="color:white">GLOBAL DEBT RELIEF</p>
+<h1>ONE CLICK</h1>
+<p style="color:white">GLOBAL DEBT RELIEF</p>
 </header>
 
 <main>
-  <h2>A Little Help Can Change a Life</h2>
-  <p>Connecting people who need help with people who want to make a difference.</p>
+<h2>A Little Help Can Change a Life</h2>
+<p>Connecting people who need help with people who want to make a difference.</p>
 
-  <a class="action" href="#donor">Support Someone</a>
-  <a class="action" href="#applicant">Get Help</a>
-  <a class="action" href="#admin">Administration</a>
+<a class="action" href="#donor">Support Someone</a>
+<a class="action" href="#applicant">Get Help</a>
+<a class="action" href="#admin">Administration</a>
 
-  <h2>How It Works</h2>
-  <p>Transparency • Trust • Humanity</p>
+<section id="applicant">
+<h2>Request Help</h2>
+<p>Tell us about your debt situation.</p>
+
+<form id="helpForm">
+<input type="text" placeholder="Full Name" required>
+<input type="text" placeholder="Country" required>
+<input type="number" placeholder="Debt Amount" min="1" required>
+
+<select required>
+<option value="">Select Currency</option>
+<option>EUR</option>
+<option>USD</option>
+<option>TND</option>
+<option>GBP</option>
+</select>
+
+<textarea placeholder="Why do you need help?" required></textarea>
+
+<button type="submit">Submit Request</button>
+</form>
+<p id="message"></p>
+</section>
+
+<section id="donor">
+<h2>Support Someone</h2>
+<p>Choose a verified beneficiary or support assistance allocated according to transparent criteria.</p>
+<p>Donation services are not active yet.</p>
+</section>
+
+<section id="admin">
+<h2>Administration</h2>
+<p>Secure case verification and administration will be developed in a later phase.</p>
+</section>
+
 </main>
 
 <footer>
-  Basic access is free. No commission on donations.<br>
-  ONE CLICK © 2026
+Basic access is free. No commission on donations.<br>
+ONE CLICK © 2026
 </footer>
+
+<script>
+document.getElementById("helpForm").addEventListener("submit", function(e) {
+e.preventDefault();
+document.getElementById("message").textContent =
+"Thank you. This is a demonstration form. Your information has not been sent or saved.";
+this.reset();
+});
+</script>
 
 </body>
 </html>
+
