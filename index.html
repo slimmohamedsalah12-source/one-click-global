@@ -216,37 +216,28 @@ if (requests.length === 0) {
 </section>
 
 <script>
-async function loadDonorRequests() {
+function loadDonorRequests() {
   const container = document.getElementById("donor-requests");
 
-  try {
-    const response = await fetch(
-      "https://YOUR_PROJECT.supabase.co/rest/v1/requests?select=*",
-      {
-        headers: {
-          "apikey": "YOUR_SUPABASE_ANON_KEY",
-          "Authorization": "Bearer YOUR_SUPABASE_ANON_KEY"
-        }
-      }
-    );
+  const requests = JSON.parse(
+    localStorage.getItem("oneClickRequests") || "[]"
+  );
 
-    if (!response.ok) throw new Error("Could not load requests");
-
-    const requests = await response.json();
-
-    container.innerHTML = requests.length
-      ? requests.map(request => `
-          <div style="border:1px solid #ddd;padding:15px;margin:12px 0;border-radius:10px;">
-            <h3>${request.full_name || "Person requesting help"}</h3>
-            <p>${request.reason || "Help request"}</p>
-            <p>${request.amount || ""}</p>
-          </div>
-        `).join("")
-      : "<p>No requests available yet.</p>";
-
-  } catch (error) {
-    container.innerHTML = "<p>Unable to load requests.</p>";
+  if (requests.length === 0) {
+    container.innerHTML = "<p>No requests available yet.</p>";
+    return;
   }
+
+  container.innerHTML = requests.map((request, index) => `
+    <div style="border:1px solid #ddd;padding:15px;margin:12px 0;border-radius:10px;">
+      <h3>❤️ Help Request ${index + 1}</h3>
+      <p>${request.reason || request.description || "Help requested"}</p>
+      <p>${request.amount || ""}</p>
+      <button onclick="alert('Thank you for your generosity!')">
+        Help this person
+      </button>
+    </div>
+  `).join("");
 }
 
 loadDonorRequests();
