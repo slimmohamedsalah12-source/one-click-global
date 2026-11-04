@@ -206,6 +206,50 @@ if (requests.length === 0) {
     list.appendChild(card);
   });
 }
-</script>/body>
+</script<section id="donor-section" style="padding:25px;max-width:800px;margin:auto;">
+  <h2>❤️ Donor – Help Someone</h2>
+  <p>Choose a person and help them repay their debts.</p>
+
+  <div id="donor-requests">
+    <p>Loading requests...</p>
+  </div>
+</section>
+
+<script>
+async function loadDonorRequests() {
+  const container = document.getElementById("donor-requests");
+
+  try {
+    const response = await fetch(
+      "https://YOUR_PROJECT.supabase.co/rest/v1/requests?select=*",
+      {
+        headers: {
+          "apikey": "YOUR_SUPABASE_ANON_KEY",
+          "Authorization": "Bearer YOUR_SUPABASE_ANON_KEY"
+        }
+      }
+    );
+
+    if (!response.ok) throw new Error("Could not load requests");
+
+    const requests = await response.json();
+
+    container.innerHTML = requests.length
+      ? requests.map(request => `
+          <div style="border:1px solid #ddd;padding:15px;margin:12px 0;border-radius:10px;">
+            <h3>${request.full_name || "Person requesting help"}</h3>
+            <p>${request.reason || "Help request"}</p>
+            <p>${request.amount || ""}</p>
+          </div>
+        `).join("")
+      : "<p>No requests available yet.</p>";
+
+  } catch (error) {
+    container.innerHTML = "<p>Unable to load requests.</p>";
+  }
+}
+
+loadDonorRequests();
+</script>>/body>
 </html>
 
