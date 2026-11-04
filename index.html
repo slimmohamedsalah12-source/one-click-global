@@ -1,4 +1,4 @@
-
+i
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -177,6 +177,35 @@ document.querySelectorAll("form").forEach(form => {
     form.reset();
   });
 });
-</script></body>
+</script><<section id="my-requests">
+  <h2>My Requests</h2>
+  <div id="requests-list"></div>
+</section>
+
+<script>
+const list = document.getElementById("requests-list");
+
+const requests = JSON.parse(
+  localStorage.getItem("oneClickRequests") || "[]"
+);
+
+if (requests.length === 0) {
+  list.textContent = "No requests yet.";
+} else {
+  requests.forEach((request, index) => {
+    const card = document.createElement("div");
+    card.style.padding = "15px";
+    card.style.margin = "10px 0";
+    card.style.border = "1px solid #ccc";
+    card.style.borderRadius = "10px";
+
+    card.textContent =
+      "Request #" + (index + 1) +
+      " - " + (request.date || "");
+
+    list.appendChild(card);
+  });
+}
+</script>/body>
 </html>
 
