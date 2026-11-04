@@ -145,6 +145,38 @@ this.reset();
 });
 </script>
 
-</body>
+<script>
+document.querySelectorAll("form").forEach(form => {
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const data = new FormData(form);
+    const request = {};
+
+    data.forEach((value, key) => {
+      request[key] = value;
+    });
+
+    let requests = JSON.parse(
+      localStorage.getItem("oneClickRequests") || "[]"
+    );
+
+    requests.push({
+      ...request,
+      date: new Date().toLocaleString()
+    });
+
+    localStorage.setItem(
+      "oneClickRequests",
+      JSON.stringify(requests)
+    );
+
+    document.getElementById("message").textContent =
+      "Your request has been received successfully!";
+
+    form.reset();
+  });
+});
+</script></body>
 </html>
 
